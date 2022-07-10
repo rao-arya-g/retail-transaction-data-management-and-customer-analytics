@@ -1,7 +1,5 @@
 # Customer analytics framework for online retail stores
 
-This repository is specific to CSCI-620-Group-Project
-
 In this project, we propose to build an application that will help online retail stores in offering personalized services to customers. To achieve better results, three strategies in customer analytics are considered in this project - a personalized recommendation system, categorization of customers, and sales trend analysis for achieving better customer retention.
 
 Features
