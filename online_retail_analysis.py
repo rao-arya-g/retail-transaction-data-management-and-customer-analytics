@@ -9,6 +9,9 @@ def clean_online_retail_data(data_df):
     :param data_df: Online retail data
     :return: Processed data of the type DataFrame
     """
+
+    # Remove the Entries with any records with Quantity <=0
+    data_df = data_df[data_df["QUANTITY"] < 0].reset_index(drop=True)
     return data_df
 
 
@@ -42,7 +45,8 @@ def main():
     """
 
     data_df_dictinary = load_online_retail_data()
-    print(data_df_dictinary)
+    complete_df = clean_online_retail_data(data_df_dictinary.get("complete_retail_data"))
+    print(complete_df)
 
 
 if __name__ == '__main__':

@@ -34,5 +34,4 @@ def load_data_from_mysql(sql_query, conn):
     """
 
     data_df = pd.read_sql_query(sql_query, conn)
-    print(data_df)
     return data_df
