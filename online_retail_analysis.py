@@ -4,6 +4,15 @@ from utility_functions import load_data_from_csv, load_data_from_mysql
 from connection_utility import get_connection
 
 
+def visualize_recency_matrix(data_df):
+    """
+    Function to visualize the recency matrix
+    :param data_df: DataFrame of the Customers with recent buy matrix information.
+    :return: None
+    """
+    return None
+
+
 def derive_recency_matrix(data_df, reference_date=None):
     """
     Function to derive recency matrix
@@ -17,10 +26,11 @@ def derive_recency_matrix(data_df, reference_date=None):
     else:
         reference_date = datetime.datetime.now().date()
 
-    data_df["INVOICE_DATE_ONLY"] = data_df["INVOICE_DATE"].date()
+    data_df["INVOICE_DATE_ONLY"] = data_df["INVOICE_DATE"].apply(lambda x: x.date())
     filtered_data_df = data_df[["CUSTOMER_ID", "INVOICE_DATE_ONLY"]]
     filtered_data_df = filtered_data_df.groupby(by=["CUSTOMER_ID"]).max().reset_index()
-    print(filtered_data_df)
+    filtered_data_df['RECENT_DAYS_DIFF'] = filtered_data_df['INVOICE_DATE_ONLY'].apply(lambda x: (reference_date - x).days)
+    return filtered_data_df
 
 
 def clean_online_retail_data(data_df):
@@ -74,7 +84,7 @@ def main():
 
     data_df_dictionary = load_online_retail_data()
     complete_df = clean_online_retail_data(data_df_dictionary.get("complete_retail_data"))
-    derive_recency_matrix(complete_df)
+    derive_recency_matrix(complete_df, "01/01/2011")
 
 
 if __name__ == '__main__':

@@ -18,7 +18,7 @@ def format_complete_retail_data(complete_data):
     return data_df
 
 
-FILE_BASED_CONFIG = {"complete_retail_data": {"file_name": "online_retail_II.xlsx", "skiprows": 0, "skipfooter": 0,
+FILE_BASED_CONFIG = {"complete_retail_data": {"file_name": "online_retail_II_sample.xlsx", "skiprows": 0, "skipfooter": 0,
                                               "sheet_name": None, "format_function": format_complete_retail_data}
                      }
 
