@@ -38,23 +38,96 @@ In this project, we propose to build an application that will help online retail
 
 #### Requirements
 
+* Python 3.7
 * Python package Pandas. 
 
    ```pip install pandas```
 
-* Python package Pandas. 
+* Python package Numpy. 
 
-   ```pip install pandas```
+   ```pip install numpy```
 
-* Python package Pandas. 
-   ```pip install pandas```
+* Python package pymysql. 
 
-* Python package Pandas.
+   ```pip install pymysql```
 
-   ```pip install pandas```
+* Python package matplotlib.pyplot.
+
+   ```pip install matplotlib.pyplot```
 
 ## Usage
 
+To load the data from Excel - 
+```python
+import foobar
+
+# returns 'words'
+foobar.pluralize('word')
+
+# returns 'geese'
+foobar.pluralize('goose')
+
+# returns 'phenomenon'
+foobar.singularize('phenomena')
+```
+
+To load the data from MySQL - 
+
+```python
+import foobar
+
+# returns 'words'
+foobar.pluralize('word')
+
+# returns 'geese'
+foobar.pluralize('goose')
+
+# returns 'phenomenon'
+foobar.singularize('phenomena')
+```
+To run the RFM analysis - 
+```python
+import foobar
+
+# returns 'words'
+foobar.pluralize('word')
+
+# returns 'geese'
+foobar.pluralize('goose')
+
+# returns 'phenomenon'
+foobar.singularize('phenomena')
+```
+
+To run the Customer segmentation -
+```python
+import foobar
+
+# returns 'words'
+foobar.pluralize('word')
+
+# returns 'geese'
+foobar.pluralize('goose')
+
+# returns 'phenomenon'
+foobar.singularize('phenomena')
+```
+
+To run the Customer segmentation -
+```python
+import foobar
+
+# returns 'words'
+foobar.pluralize('word')
+
+# returns 'geese'
+foobar.pluralize('goose')
+
+# returns 'phenomenon'
+foobar.singularize('phenomena')
+```
+
+To run the Sales trend analysis -
 ```python
 import foobar
 
