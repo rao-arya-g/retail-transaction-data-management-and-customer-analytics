@@ -1,6 +1,26 @@
+import datetime
 from constants import FILE_BASED_CONFIG, MYSQL_BASED_CONFIG
 from utility_functions import load_data_from_csv, load_data_from_mysql
 from connection_utility import get_connection
+
+
+def derive_recency_matrix(data_df, reference_date=None):
+    """
+    Function to derive recency matrix
+    :param data_df:
+    :param reference_date:
+    :return:
+    """
+
+    if reference_date is not None and isinstance(reference_date, str):
+        reference_date = datetime.datetime.strptime(reference_date, "%m/%d/%Y").date()
+    else:
+        reference_date = datetime.datetime.now().date()
+
+    data_df["INVOICE_DATE_ONLY"] = data_df["INVOICE_DATE"].date()
+    filtered_data_df = data_df[["CUSTOMER_ID", "INVOICE_DATE_ONLY"]]
+    filtered_data_df = filtered_data_df.groupby(by=["CUSTOMER_ID"]).max().reset_index()
+    print(filtered_data_df)
 
 
 def clean_online_retail_data(data_df):
@@ -12,6 +32,14 @@ def clean_online_retail_data(data_df):
 
     # Remove the Entries with any records with Quantity <=0
     data_df = data_df[data_df["QUANTITY"] < 0].reset_index(drop=True)
+
+    # Remove the Entries with Stock code as -
+
+    data_df = data_df[~data_df["STOCK_CODE"].isin(['BANK_CHARGE'])]
+
+    # Calculate actual price of the transaction
+    data_df["PURCHASE_COST"] = data_df["QUANTITY"] * data_df["PRICE"]
+
     return data_df
 
 
@@ -44,9 +72,9 @@ def main():
     :return: None
     """
 
-    data_df_dictinary = load_online_retail_data()
-    complete_df = clean_online_retail_data(data_df_dictinary.get("complete_retail_data"))
-    print(complete_df)
+    data_df_dictionary = load_online_retail_data()
+    complete_df = clean_online_retail_data(data_df_dictionary.get("complete_retail_data"))
+    derive_recency_matrix(complete_df)
 
 
 if __name__ == '__main__':
