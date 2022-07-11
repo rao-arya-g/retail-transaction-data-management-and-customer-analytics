@@ -3,11 +3,17 @@
 In this project, we propose to build an application that will help online retail stores in offering personalized services to customers. To achieve better results, three strategies in customer analytics are considered in this project - a personalized recommendation system, categorization of customers, and sales trend analysis for achieving better customer retention.
 
 ## Features
- * #### RFM Analysis
+ * #### Support for Excel and MySQL data input
 
-      * Nested bullet
+      * Input transaction data can be loaded from either Excel or MySQL.
 
-      * Sub-nested bullet etc
+      * Formatting functions and filter functions can be specified to the particular input without affecting the other input.
+
+ * #### Re-usable independent module for data pre-processing
+
+      * Data pre-processing is made as an independent step. The pre-processed data can be retrieved without running the entire program and can be re-used by any other program.
+
+
  * #### RFM Analysis
 
       * Nested bullet
@@ -48,3 +54,4 @@ foobar.singularize('phenomena')
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
+
