@@ -3,6 +3,7 @@ import datetime
 from constants import FILE_BASED_CONFIG, MYSQL_BASED_CONFIG
 from utility_functions import load_data_from_csv, load_data_from_mysql
 from connection_utility import get_connection
+from online_retail_visualization import visualize_recency_matrix
 
 
 def derive_recency_matrix(data_df, reference_date=None):
@@ -125,7 +126,8 @@ def main():
     :return: None
     """
 
-    perform_rfm_analysis(read_from_csv=True, data_set_name="complete_retail_data")
+    data_df = perform_rfm_analysis(read_from_csv=True, data_set_name="complete_retail_data", reference_date="01/01/2011")
+    visualize_recency_matrix(data_df)
 
 
 if __name__ == '__main__':
