@@ -37,23 +37,28 @@ In this project, we propose to build an application that will help online retail
 ## Installation
 
 #### Requirements
+* MariaDB  10.4+ or any latest version of SQL.
+* Any valid IDE to run the python code with Python 3.7+ Interpreter.
+* Python 3.7+ packages listed below - 
+   * Python package Pandas. 
 
-* Python 3.7
-* Python package Pandas. 
+     ```pip install pandas```
 
-   ```pip install pandas```
+  * Python package Numpy. 
 
-* Python package Numpy. 
+     ```pip install numpy```
 
-   ```pip install numpy```
+  * Python package pymysql. 
 
-* Python package pymysql. 
+     ```pip install pymysql```
 
-   ```pip install pymysql```
+  * Python package matplotlib.pyplot.
 
-* Python package matplotlib.pyplot.
+     ```pip install matplotlib.pyplot```
 
-   ```pip install matplotlib.pyplot```
+  * Python package Scipy.
+
+     ```pip install scipy```
 
 ## Usage
 
@@ -107,6 +112,9 @@ from online_retail_analysis import *
 ```
 
 ## Contributing
+
+Please access the code at - https://github.com/ar1422/CSCI-620-Group-Project.git.<Currently the repository is kept private for development purpose.>
+
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
