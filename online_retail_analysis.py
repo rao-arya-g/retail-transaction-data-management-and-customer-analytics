@@ -1,17 +1,8 @@
 import datetime
+
 from constants import FILE_BASED_CONFIG, MYSQL_BASED_CONFIG
 from utility_functions import load_data_from_csv, load_data_from_mysql
 from connection_utility import get_connection
-
-
-def visualize_recency_matrix(data_df):
-    """
-    Function to visualize the recency matrix
-    :param data_df: DataFrame of the Customers with recent buy matrix information.
-    :return: None
-    """
-
-    return None
 
 
 def derive_recency_matrix(data_df, reference_date=None):
@@ -50,6 +41,20 @@ def derive_frequency_matrix(data_df):
     return filtered_data_df
 
 
+def derive_monetary_matrix(data_df):
+    """
+    Function
+    :param data_df:
+    :return:
+    """
+
+    column_rename_dictionary = {"INVOICE_DATE": "FREQUENCY"}
+    filtered_data_df = data_df[["CUSTOMER_ID", "PURCHASE_COST"]]
+    filtered_data_df = filtered_data_df.groupby(by=["CUSTOMER_ID"]).sum().reset_index()
+    filtered_data_df = filtered_data_df.rename(columns=column_rename_dictionary)
+    return filtered_data_df
+
+
 def clean_online_retail_data(data_df):
     """
     Function to clean the online retail data.
@@ -58,7 +63,7 @@ def clean_online_retail_data(data_df):
     """
 
     # Remove the Entries with any records with Quantity <=0
-    data_df = data_df[data_df["QUANTITY"] < 0].reset_index(drop=True)
+    data_df = data_df[data_df["QUANTITY"] > 0].reset_index(drop=True)
 
     # Remove the Entries with Stock code as -
 
@@ -66,8 +71,29 @@ def clean_online_retail_data(data_df):
 
     # Calculate actual price of the transaction
     data_df["PURCHASE_COST"] = data_df["QUANTITY"] * data_df["PRICE"]
-
     return data_df
+
+
+def perform_rfm_analysis(read_from_csv=True, data_set_name=None, reference_date=None):
+    """
+    Function to perform RFM Analysis
+    :param reference_date:
+    :param data_set_name:
+    :param read_from_csv:
+    :return: RFM Analysis DataFrame
+    """
+    complete_retail_data = load_online_retail_data(read_from_csv)
+    relevant_data_df = complete_retail_data.get(data_set_name)
+    processed_data_df = clean_online_retail_data(relevant_data_df)
+
+    # Perform Each one of the RFM analysis
+    recency_df = derive_recency_matrix(processed_data_df, reference_date)
+    monetary_df = derive_monetary_matrix(processed_data_df)
+    frequency_df = derive_frequency_matrix(processed_data_df)
+
+    recency_df = recency_df.merge(monetary_df, on=["CUSTOMER_ID"])
+    final_df = recency_df.merge(frequency_df, on="CUSTOMER_ID")
+    return final_df
 
 
 def load_online_retail_data(read_from_csv=True):
@@ -99,10 +125,7 @@ def main():
     :return: None
     """
 
-    data_df_dictionary = load_online_retail_data()
-    complete_df = clean_online_retail_data(data_df_dictionary.get("complete_retail_data"))
-    derive_recency_matrix(complete_df, "01/01/2011")
-    derive_frequency_matrix(complete_df)
+    perform_rfm_analysis(read_from_csv=True, data_set_name="complete_retail_data")
 
 
 if __name__ == '__main__':
