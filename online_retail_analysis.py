@@ -10,6 +10,7 @@ def visualize_recency_matrix(data_df):
     :param data_df: DataFrame of the Customers with recent buy matrix information.
     :return: None
     """
+
     return None
 
 
@@ -29,7 +30,23 @@ def derive_recency_matrix(data_df, reference_date=None):
     data_df["INVOICE_DATE_ONLY"] = data_df["INVOICE_DATE"].apply(lambda x: x.date())
     filtered_data_df = data_df[["CUSTOMER_ID", "INVOICE_DATE_ONLY"]]
     filtered_data_df = filtered_data_df.groupby(by=["CUSTOMER_ID"]).max().reset_index()
-    filtered_data_df['RECENT_DAYS_DIFF'] = filtered_data_df['INVOICE_DATE_ONLY'].apply(lambda x: (reference_date - x).days)
+    filtered_data_df['RECENCY'] = filtered_data_df['INVOICE_DATE_ONLY'].apply(lambda x: (reference_date - x).days)
+    filtered_data_df = filtered_data_df[["CUSTOMER_ID", "RECENCY"]]
+    return filtered_data_df
+
+
+def derive_frequency_matrix(data_df):
+    """
+    Function to derive frequency matrix
+    :param data_df:
+    :return:
+    """
+
+    column_rename_dictionary = {"INVOICE_DATE": "FREQUENCY"}
+    filtered_data_df = data_df[["CUSTOMER_ID", "INVOICE_DATE"]]
+    filtered_data_df = filtered_data_df.drop_duplicates()
+    filtered_data_df = filtered_data_df.groupby(by=["CUSTOMER_ID"]).count().reset_index()
+    filtered_data_df = filtered_data_df.rename(columns=column_rename_dictionary)
     return filtered_data_df
 
 
@@ -85,6 +102,7 @@ def main():
     data_df_dictionary = load_online_retail_data()
     complete_df = clean_online_retail_data(data_df_dictionary.get("complete_retail_data"))
     derive_recency_matrix(complete_df, "01/01/2011")
+    derive_frequency_matrix(complete_df)
 
 
 if __name__ == '__main__':
