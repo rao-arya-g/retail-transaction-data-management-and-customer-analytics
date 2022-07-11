@@ -59,86 +59,51 @@ In this project, we propose to build an application that will help online retail
 
 To load the data from Excel - 
 ```python
-import foobar
+from online_retail_analysis import *
 
-# returns 'words'
-foobar.pluralize('word')
+# loads the data from excel sheet
+data_df_dictionary = load_online_retail_data()
 
-# returns 'geese'
-foobar.pluralize('goose')
+# to select any specific data, use the get method as shown below
+data_df_dictionary.get('complete_retail_data')
 
-# returns 'phenomenon'
-foobar.singularize('phenomena')
 ```
 
 To load the data from MySQL - 
 
 ```python
-import foobar
+from online_retail_analysis import *
 
-# returns 'words'
-foobar.pluralize('word')
+# loads the data from excel sheet
+data_df_dictionary = load_online_retail_data(read_from_csv=False)
 
-# returns 'geese'
-foobar.pluralize('goose')
-
-# returns 'phenomenon'
-foobar.singularize('phenomena')
+# to select any specific data, use the get method as shown below
+data_df_dictionary.get('complete_retail_data')
 ```
+
 To run the RFM analysis - 
 ```python
-import foobar
+from online_retail_analysis import *
 
-# returns 'words'
-foobar.pluralize('word')
+# loads the data from excel sheet
+rfm_analysis_data_df = perform_rfm_analysis(read_from_csv=True, data_set_name="complete_retail_data")
 
-# returns 'geese'
-foobar.pluralize('goose')
-
-# returns 'phenomenon'
-foobar.singularize('phenomena')
+print(rfm_analysis_data_df)
 ```
 
-To run the Customer segmentation -
+To run the Customer segmentation - (NOT IMPLEMENTED)
 ```python
-import foobar
-
-# returns 'words'
-foobar.pluralize('word')
-
-# returns 'geese'
-foobar.pluralize('goose')
-
-# returns 'phenomenon'
-foobar.singularize('phenomena')
+from online_retail_analysis import *
 ```
 
-To run the Customer segmentation -
+To run the Customer segmentation - (NOT IMPLEMENTED)
 ```python
-import foobar
-
-# returns 'words'
-foobar.pluralize('word')
-
-# returns 'geese'
-foobar.pluralize('goose')
-
-# returns 'phenomenon'
-foobar.singularize('phenomena')
+from online_retail_analysis import *
 ```
 
-To run the Sales trend analysis -
+To run the Sales trend analysis - (NOT IMPLEMENTED)
 ```python
-import foobar
-
-# returns 'words'
-foobar.pluralize('word')
-
-# returns 'geese'
-foobar.pluralize('goose')
-
-# returns 'phenomenon'
-foobar.singularize('phenomena')
+from online_retail_analysis import *
 ```
 
 ## Contributing
