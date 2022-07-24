@@ -1,59 +1,8 @@
-import datetime
-
-from constants import FILE_BASED_CONFIG, MYSQL_BASED_CONFIG
-from utility_functions import load_data_from_csv, load_data_from_mysql
 from connection_utility import get_connection
+from constants import FILE_BASED_CONFIG, MYSQL_BASED_CONFIG
 from online_retail_visualization import visualize_recency_matrix
-
-
-def derive_recency_matrix(data_df, reference_date=None):
-    """
-    Function to derive recency matrix
-    :param data_df:
-    :param reference_date:
-    :return:
-    """
-
-    if reference_date is not None and isinstance(reference_date, str):
-        reference_date = datetime.datetime.strptime(reference_date, "%m/%d/%Y").date()
-    else:
-        reference_date = datetime.datetime.now().date()
-
-    data_df["INVOICE_DATE_ONLY"] = data_df["INVOICE_DATE"].apply(lambda x: x.date())
-    filtered_data_df = data_df[["CUSTOMER_ID", "INVOICE_DATE_ONLY"]]
-    filtered_data_df = filtered_data_df.groupby(by=["CUSTOMER_ID"]).max().reset_index()
-    filtered_data_df['RECENCY'] = filtered_data_df['INVOICE_DATE_ONLY'].apply(lambda x: (reference_date - x).days)
-    filtered_data_df = filtered_data_df[["CUSTOMER_ID", "RECENCY"]]
-    return filtered_data_df
-
-
-def derive_frequency_matrix(data_df):
-    """
-    Function to derive frequency matrix
-    :param data_df:
-    :return:
-    """
-
-    column_rename_dictionary = {"INVOICE_DATE": "FREQUENCY"}
-    filtered_data_df = data_df[["CUSTOMER_ID", "INVOICE_DATE"]]
-    filtered_data_df = filtered_data_df.drop_duplicates()
-    filtered_data_df = filtered_data_df.groupby(by=["CUSTOMER_ID"]).count().reset_index()
-    filtered_data_df = filtered_data_df.rename(columns=column_rename_dictionary)
-    return filtered_data_df
-
-
-def derive_monetary_matrix(data_df):
-    """
-    Function
-    :param data_df:
-    :return:
-    """
-
-    column_rename_dictionary = {"INVOICE_DATE": "FREQUENCY"}
-    filtered_data_df = data_df[["CUSTOMER_ID", "PURCHASE_COST"]]
-    filtered_data_df = filtered_data_df.groupby(by=["CUSTOMER_ID"]).sum().reset_index()
-    filtered_data_df = filtered_data_df.rename(columns=column_rename_dictionary)
-    return filtered_data_df
+from rfm_analysis import derive_recency_matrix, derive_monetary_matrix, derive_frequency_matrix, allocate_rfm_scores
+from utility_functions import load_data_from_csv, load_data_from_mysql
 
 
 def clean_online_retail_data(data_df):
@@ -94,6 +43,7 @@ def perform_rfm_analysis(read_from_csv=True, data_set_name=None, reference_date=
 
     recency_df = recency_df.merge(monetary_df, on=["CUSTOMER_ID"])
     final_df = recency_df.merge(frequency_df, on="CUSTOMER_ID")
+    final_df = allocate_rfm_scores(final_df)
     return final_df
 
 
@@ -127,7 +77,8 @@ def main():
     """
 
     data_df = perform_rfm_analysis(read_from_csv=True, data_set_name="complete_retail_data", reference_date="01/01/2011")
-    visualize_recency_matrix(data_df)
+    data_df.to_clipboard()
+    # visualize_recency_matrix(data_df)
 
 
 if __name__ == '__main__':
