@@ -1,9 +1,7 @@
-from connection_utility import get_connection
-from constants import FILE_BASED_CONFIG, MYSQL_BASED_CONFIG
-from data_processing import clean_online_retail_data
+
+from data_processing import clean_online_retail_data, load_online_retail_data
 from online_retail_visualization import visualize_recency_matrix
 from rfm_analysis import derive_recency_matrix, derive_monetary_matrix, derive_frequency_matrix, allocate_rfm_scores
-from utility_functions import load_data_from_csv, load_data_from_mysql
 
 
 def perform_rfm_analysis(read_from_csv=True, data_set_name=None, reference_date=None):
@@ -27,29 +25,6 @@ def perform_rfm_analysis(read_from_csv=True, data_set_name=None, reference_date=
     final_df = recency_df.merge(frequency_df, on="CUSTOMER_ID")
     final_df = allocate_rfm_scores(final_df)
     return final_df
-
-
-def load_online_retail_data(read_from_csv=True):
-    """
-    Function to load the online retail data
-    :param read_from_csv: Boolean flag to indicate whether reading should be done from csv or from MySQL.
-    :return: Dictionary with Table Name and Corresponding data in DataFrame format.
-    """
-
-    data_df_dictionary = {}
-
-    if read_from_csv:
-        for table_name in FILE_BASED_CONFIG:
-            current_config = FILE_BASED_CONFIG.get(table_name)
-            data_df = load_data_from_csv(current_config)
-            data_df_dictionary[table_name] = data_df
-    else:
-        conn = get_connection()
-        for table_name in MYSQL_BASED_CONFIG:
-            current_config = MYSQL_BASED_CONFIG.get(table_name)
-            data_df = load_data_from_mysql(current_config, conn)
-            data_df_dictionary[table_name] = data_df
-    return data_df_dictionary
 
 
 def main():

@@ -1,4 +1,4 @@
-from data_processing import format_complete_retail_data
+from utility_functions import format_complete_retail_data
 
 
 FILE_BASED_CONFIG = {"complete_retail_data": {"file_name": "online_retail_II_sample.xlsx", "skiprows": 0, "skipfooter": 0,

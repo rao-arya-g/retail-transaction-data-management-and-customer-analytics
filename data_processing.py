@@ -1,23 +1,6 @@
-import pandas as pd
-
-
-def format_complete_retail_data(complete_data):
-    """
-    Function to format the complete retail data
-    :param complete_data:
-    :return:
-    """
-    column_rename_dictionary = {"Invoice": "INVOICE_NUMBER", "StockCode": "STOCK_CODE",
-                                "Description": "PRODUCT_DESCRIPTION", "Quantity": "QUANTITY",
-                                "InvoiceDate": "INVOICE_DATE", "Price": "PRICE", "Customer ID": "CUSTOMER_ID",
-                                "Country": "COUNTRY"}
-
-    data_df = pd.DataFrame()
-    for sheet_name in complete_data:
-        data_df = data_df.append(complete_data.get(sheet_name))
-
-    data_df = data_df.rename(columns=column_rename_dictionary)
-    return data_df
+from connection_utility import get_connection
+from constants import FILE_BASED_CONFIG, MYSQL_BASED_CONFIG
+from utility_functions import load_data_from_csv, load_data_from_mysql
 
 
 def clean_online_retail_data(data_df):
@@ -37,3 +20,26 @@ def clean_online_retail_data(data_df):
     # Calculate actual price of the transaction
     data_df["PURCHASE_COST"] = data_df["QUANTITY"] * data_df["PRICE"]
     return data_df
+
+
+def load_online_retail_data(read_from_csv=True):
+    """
+    Function to load the online retail data
+    :param read_from_csv: Boolean flag to indicate whether reading should be done from csv or from MySQL.
+    :return: Dictionary with Table Name and Corresponding data in DataFrame format.
+    """
+
+    data_df_dictionary = {}
+
+    if read_from_csv:
+        for table_name in FILE_BASED_CONFIG:
+            current_config = FILE_BASED_CONFIG.get(table_name)
+            data_df = load_data_from_csv(current_config)
+            data_df_dictionary[table_name] = data_df
+    else:
+        conn = get_connection()
+        for table_name in MYSQL_BASED_CONFIG:
+            current_config = MYSQL_BASED_CONFIG.get(table_name)
+            data_df = load_data_from_mysql(current_config, conn)
+            data_df_dictionary[table_name] = data_df
+    return data_df_dictionary
