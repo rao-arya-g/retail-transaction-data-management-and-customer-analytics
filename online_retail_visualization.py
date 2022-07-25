@@ -31,3 +31,13 @@ def visualize_monetary_matrix(data_df):
     plt.xlabel("Money spent by the customers", fontdict=font)
     plt.ylabel("Number of customers", fontdict=font)
     plt.show()
+
+
+def visualize_frequency_matrix(data_df):
+    """
+
+    :param data_df:
+    :return:
+    """
+    return data_df
+
