@@ -1,27 +1,9 @@
 from connection_utility import get_connection
 from constants import FILE_BASED_CONFIG, MYSQL_BASED_CONFIG
+from data_processing import clean_online_retail_data
 from online_retail_visualization import visualize_recency_matrix
 from rfm_analysis import derive_recency_matrix, derive_monetary_matrix, derive_frequency_matrix, allocate_rfm_scores
 from utility_functions import load_data_from_csv, load_data_from_mysql
-
-
-def clean_online_retail_data(data_df):
-    """
-    Function to clean the online retail data.
-    :param data_df: Online retail data
-    :return: Processed data of the type DataFrame
-    """
-
-    # Remove the Entries with any records with Quantity <=0
-    data_df = data_df[data_df["QUANTITY"] > 0].reset_index(drop=True)
-
-    # Remove the Entries with Stock code as -
-
-    data_df = data_df[~data_df["STOCK_CODE"].isin(['BANK_CHARGE'])]
-
-    # Calculate actual price of the transaction
-    data_df["PURCHASE_COST"] = data_df["QUANTITY"] * data_df["PRICE"]
-    return data_df
 
 
 def perform_rfm_analysis(read_from_csv=True, data_set_name=None, reference_date=None):
