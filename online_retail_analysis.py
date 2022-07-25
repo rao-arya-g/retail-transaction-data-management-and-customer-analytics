@@ -3,7 +3,7 @@ from online_retail_visualization import visualize_recency_matrix
 from rfm_analysis import derive_recency_matrix, derive_monetary_matrix, derive_frequency_matrix, allocate_rfm_scores
 
 
-def perform_rfm_analysis(read_from_csv=True, data_set_name=None, reference_date=None):
+def perform_rfm_analysis(data_set_name=None, reference_date=None, read_from_csv=True):
     """
     Function to perform RFM Analysis
     :param reference_date:
@@ -31,8 +31,9 @@ def main():
     Main method - Present now to test few things
     :return: None
     """
-
-    data_df = perform_rfm_analysis(read_from_csv=True, data_set_name="complete_retail_data", reference_date="01/01/2011")
+    reference_date = "01/01/2011"
+    data_set_name = "complete_retail_data"
+    data_df = perform_rfm_analysis(data_set_name=data_set_name, reference_date=reference_date, read_from_csv=True)
     data_df.to_clipboard()
     # visualize_recency_matrix(data_df)
 

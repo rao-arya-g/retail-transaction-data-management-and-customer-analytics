@@ -1,4 +1,7 @@
 import datetime
+import pandas as pd
+from constants import FREQUENCY_LABELS, BASE_FREQUENCY_BINS, BASE_MONETARY_BINS, BASE_RECENCY_BINS, \
+    RECENCY_LABELS, MONETARY_LABELS
 
 
 def derive_monetary_matrix(data_df):
@@ -21,39 +24,15 @@ def allocate_rfm_scores(data_df):
     :param data_df:
     :return:
     """
-    def allocate_frequency_score(frequency):
-        if frequency > 10:
-            return 4
-        elif frequency > 5:
-            return 3
-        elif frequency > 2:
-            return 2
-        else:
-            return 1
 
-    def allocate_monetary_score(monetary):
-        if monetary > 10:
-            return 4
-        elif monetary > 5:
-            return 3
-        elif monetary > 2:
-            return 2
-        else:
-            return 1
+    data_df['FREQUENCY_SCORE'] = pd.cut(data_df['FREQUENCY'], bins=BASE_FREQUENCY_BINS+[max(data_df['FREQUENCY']+1)],
+                                        labels=FREQUENCY_LABELS)
 
-    def allocate_recency_score(recency):
-        if recency > 10:
-            return 4
-        elif recency > 5:
-            return 3
-        elif recency > 2:
-            return 2
-        else:
-            return 1
+    data_df['RECENCY_SCORE'] = pd.cut(data_df['RECENCY'], bins=BASE_RECENCY_BINS+[max(data_df['RECENCY']+1)],
+                                      labels=RECENCY_LABELS)
 
-    data_df['FREQUENCY_SCORE'] = data_df['FREQUENCY'].apply(allocate_frequency_score)
-    data_df['RECENCY_SCORE'] = data_df['RECENCY'].apply(allocate_recency_score)
-    data_df['MONETARY_SCORE'] = data_df['MONETARY'].apply(allocate_monetary_score)
+    data_df['MONETARY_SCORE'] = pd.cut(data_df['MONETARY'], bins=BASE_MONETARY_BINS+[max(data_df['MONETARY']+1)],
+                                       labels=MONETARY_LABELS)
     return data_df
 
 
