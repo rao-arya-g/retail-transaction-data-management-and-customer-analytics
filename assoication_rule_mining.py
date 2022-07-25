@@ -21,6 +21,7 @@ def perform_arm_apriori(data_df):
     :param data_df:
     :return:
     """
+
     freq_items = apriori(data_df, min_support=0.02, use_colnames=True).sort_values(by='SUPPORT', ascending=False)
     rules = association_rules(freq_items, metric='LIFT', min_threshold=1).sort_values(by='LIFT', ascending=False)
     rules = rules[(rules['LIFT'] > 5) & (rules['CONFIDENCE'] > 0.5)]
