@@ -1,6 +1,7 @@
 from data_processing import clean_online_retail_data, load_online_retail_data
-from online_retail_visualization import visualize_recency_matrix
+# from online_retail_visualization import visualize_recency_matrix
 from rfm_analysis import derive_recency_matrix, derive_monetary_matrix, derive_frequency_matrix, allocate_rfm_scores
+from assoication_rule_mining import perform_arm_apriori, get_data_for_arm
 
 
 def perform_rfm_analysis(data_set_name=None, reference_date=None, read_from_csv=True):
@@ -26,6 +27,14 @@ def perform_rfm_analysis(data_set_name=None, reference_date=None, read_from_csv=
     return final_df
 
 
+def perform_association_rule_mining(data_set_name=None, read_from_csv=True):
+    complete_retail_data = load_online_retail_data(read_from_csv)
+    relevant_data_df = complete_retail_data.get(data_set_name)
+    processed_data_df = clean_online_retail_data(relevant_data_df)
+    processed_data_df = get_data_for_arm(processed_data_df)
+    perform_arm_apriori(processed_data_df)
+
+
 def main():
     """
     Main method - Present now to test few things
@@ -33,8 +42,10 @@ def main():
     """
     reference_date = "01/01/2011"
     data_set_name = "complete_retail_data"
-    data_df = perform_rfm_analysis(data_set_name=data_set_name, reference_date=reference_date, read_from_csv=True)
-    data_df.to_clipboard()
+    # data_df = perform_rfm_analysis(data_set_name=data_set_name, reference_date=reference_date, read_from_csv=True)
+    #
+    # data_df.to_clipboard()
+    perform_association_rule_mining(data_set_name=data_set_name, read_from_csv=True)
     # visualize_recency_matrix(data_df)
 
 

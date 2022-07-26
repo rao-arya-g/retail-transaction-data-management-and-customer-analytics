@@ -8,11 +8,22 @@ def get_data_for_arm(data_df):
     :param data_df:
     :return:
     """
-    data_df = data_df.sort_values(by='INVOICE_DATE')
-    data_df = data_df.set_index('INVOICE_DATE')
-    data_df['SOLD'] = 1
-    pivoted_data_df = pd.pivot_table(data_df, values=['SOLD'], index=['INVOICE_DATE'], columns=['PRODUCT_DESCRIPTION']).fillna(0)
-    return pivoted_data_df
+    data_df = data_df[data_df['COUNTRY'] == "United Kingdom"].groupby(['INVOICE_NUMBER', 'PRODUCT_DESCRIPTION'])["QUANTITY"].sum().unstack().reset_index().fillna(0).set_index("INVOICE_NUMBER")
+
+    def encode_values(x):
+        if x <= 0:
+            return 0
+        if x >= 1:
+            return 1
+
+    # Apply function to data
+    data_df = data_df.applymap(encode_values)
+    data_df = data_df[(data_df > 0).sum(axis=1) >= 2]
+    return data_df
+
+    # data_df = data_df[data_df.sum(axis=1) >= 2]
+    # pivoted_data_df = pd.pivot_table(data_df, values=['SOLD'], index='INVOICE_DATE', columns=['PRODUCT_DESCRIPTION']).fillna(0)
+    # return pivoted_data_df
 
 
 def perform_arm_apriori(data_df):
@@ -22,9 +33,9 @@ def perform_arm_apriori(data_df):
     :return:
     """
 
-    freq_items = apriori(data_df, min_support=0.02, use_colnames=True).sort_values(by='SUPPORT', ascending=False)
-    rules = association_rules(freq_items, metric='LIFT', min_threshold=1).sort_values(by='LIFT', ascending=False)
-    rules = rules[(rules['LIFT'] > 5) & (rules['CONFIDENCE'] > 0.5)]
+    freq_items = apriori(data_df, min_support=0.02, use_colnames=True).sort_values(by='support', ascending=False)
+    rules = association_rules(freq_items, metric='lift', min_threshold=1).sort_values(by='lift', ascending=False)
+    rules = rules[(rules['lift'] > 5) & (rules['confidence'] > 0.5)]
     return rules
 
 
