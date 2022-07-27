@@ -9,13 +9,13 @@ FILE_BASED_CONFIG = {"complete_retail_data": {"file_name": "online_retail_II_sam
 MYSQL_BASED_CONFIG = {"table_1_1": {"SQL_QUERY": ""}}
 
 BASE_FREQUENCY_BINS = [0, 2, 5, 10]
-FREQUENCY_LABELS = [1, 2, 3, 4]
+FREQUENCY_LABELS = ['1', '2', '3', '4']
 
 BASE_RECENCY_BINS = [0, 2, 5, 10]
-RECENCY_LABELS = [1, 2, 3, 4]
+RECENCY_LABELS = ['1', '2', '3', '4']
 
 BASE_MONETARY_BINS = [0, 2, 5, 10]
-MONETARY_LABELS = [1, 2, 3, 4]
+MONETARY_LABELS = ['1', '2', '3', '4']
 
 CATEGORY_MAP = {'Champion': {'RECENCY_SCORE': ['2', '3', '4'], 'FREQUENCY_SCORE': ['4'], 'MONETARY_SCORE': ['4']},
                 'Top Loyal Customer': {'RECENCY_SCORE': ['3'], 'FREQUENCY_SCORE': ['1', '2', '3', '4'], 'MONETARY_SCORE': ['3', '4']},

@@ -26,13 +26,13 @@ def allocate_rfm_scores(data_df):
     """
 
     data_df['FREQUENCY_SCORE'] = pd.cut(data_df['FREQUENCY'], bins=BASE_FREQUENCY_BINS+[max(data_df['FREQUENCY']+1)],
-                                        labels=FREQUENCY_LABELS).astype(int)
+                                        labels=FREQUENCY_LABELS).astype(str)
 
     data_df['RECENCY_SCORE'] = pd.cut(data_df['RECENCY'], bins=BASE_RECENCY_BINS+[max(data_df['RECENCY']+1)],
-                                      labels=RECENCY_LABELS).astype(int)
+                                      labels=RECENCY_LABELS).astype(str)
 
     data_df['MONETARY_SCORE'] = pd.cut(data_df['MONETARY'], bins=BASE_MONETARY_BINS+[max(data_df['MONETARY']+1)],
-                                       labels=MONETARY_LABELS).astype(int)
+                                       labels=MONETARY_LABELS).astype(str)
 
     return data_df
 
