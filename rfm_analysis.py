@@ -3,6 +3,16 @@ import pandas as pd
 from constants import FREQUENCY_LABELS, BASE_FREQUENCY_BINS, BASE_MONETARY_BINS, BASE_RECENCY_BINS, \
     RECENCY_LABELS, MONETARY_LABELS
 
+"""
+CSCI-620 - Project
+Author: Arya Girisha Rao(ar1422@rit.edu)
+        Pradeep Kumar Gontla(pg3328@rit.edu)
+        Shivani Singh(ss5243@rit.edu)
+        Meenu Gigi(mg2578@rit.edu)
+
+This is a python file for RFM Analysis.
+"""
+
 
 def derive_monetary_matrix(data_df):
     """

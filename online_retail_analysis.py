@@ -5,6 +5,16 @@ from online_retail_visualization import visualize_recency_matrix, display_basic_
     visualize_expensive_goods_distribution, visualize_sales_trend, visualize_recency_score_distribution, visualize_customer_category
 from rfm_analysis import derive_recency_matrix, derive_monetary_matrix, derive_frequency_matrix, allocate_rfm_scores
 
+"""
+CSCI-620 - Project
+Author: Arya Girisha Rao(ar1422@rit.edu)
+        Pradeep Kumar Gontla(pg3328@rit.edu)
+        Shivani Singh(ss5243@rit.edu)
+        Meenu Gigi(mg2578@rit.edu)
+
+This is a python file for Online retail Analysis main run
+"""
+
 
 def perform_rfm_analysis(data_set_name=None, reference_date=None, read_from_csv=True, visualization=True):
     """

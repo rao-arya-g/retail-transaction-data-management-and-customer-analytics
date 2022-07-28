@@ -1,5 +1,14 @@
 from utility_functions import format_complete_retail_data
 
+"""
+CSCI-620 - Project
+Author: Arya Girisha Rao(ar1422@rit.edu)
+        Pradeep Kumar Gontla(pg3328@rit.edu)
+        Shivani Singh(ss5243@rit.edu)
+        Meenu Gigi(mg2578@rit.edu)
+
+This is a python file for Constants required for the project.
+"""
 
 FILE_BASED_CONFIG = {"complete_retail_data": {"file_name": "online_retail_II_sample.xlsx", "skiprows": 0, "skipfooter": 0,
                                               "sheet_name": None, "format_function": format_complete_retail_data}
