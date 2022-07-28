@@ -9,19 +9,19 @@ CURRENT_DB = "playground"
 
 def get_connection():
     """
-
-    :return:
+    Establish a connection with MySQL.
+    :return: MySQL connection
     """
+
     conn = pymysql.connect(host=HOST_NAME, port=PORT, user=USER, passwd='', db=CURRENT_DB)
     return conn
 
 
 def close_connection(conn=None):
     """
-    Method to close the existing connection
-    :return:
+    Method to close an existing connection
+    :return: None
     """
+
     if conn:
         conn.close()
-
-    return None
