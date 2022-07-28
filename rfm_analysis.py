@@ -6,9 +6,9 @@ from constants import FREQUENCY_LABELS, BASE_FREQUENCY_BINS, BASE_MONETARY_BINS,
 
 def derive_monetary_matrix(data_df):
     """
-    Function
-    :param data_df:
-    :return:
+    Function to derive the data for Monetary matrix.
+    :param data_df: Input DataFrame with Customer ID and Purchase Cost.
+    :return: Monetary matrix for all the customers.
     """
 
     column_rename_dictionary = {"PURCHASE_COST": "MONETARY"}
@@ -20,9 +20,10 @@ def derive_monetary_matrix(data_df):
 
 def allocate_rfm_scores(data_df):
     """
-    Function to allocate score for RFM.
-    :param data_df:
-    :return:
+    Function to allocate score for RFM. Uses the Bucketing approach.
+    Please refer to constant file to know about the intervals.
+    :param data_df: Input data with Recency, Frequency, and Monetary values.
+    :return: DataFrame with Scores for Recency, Frequency, and Monetary matrix.
     """
 
     print(max(data_df['FREQUENCY']), max(data_df['RECENCY']), max(data_df['MONETARY']))
@@ -41,10 +42,10 @@ def allocate_rfm_scores(data_df):
 
 def derive_recency_matrix(data_df, reference_date=None):
     """
-    Function to derive recency matrix
-    :param data_df:
-    :param reference_date:
-    :return:
+    Function to derive the data for Recency matrix.
+    :param reference_date: Reference date from which Recency needs to be calculated.
+    :param data_df: Input DataFrame with Customer ID and Invoice date.
+    :return: Recency matrix for all the customers.
     """
 
     if reference_date is not None and isinstance(reference_date, str):
@@ -62,9 +63,9 @@ def derive_recency_matrix(data_df, reference_date=None):
 
 def derive_frequency_matrix(data_df):
     """
-    Function to derive frequency matrix.
-    :param data_df:
-    :return:
+    Function to derive the data for Frequency matrix.
+    :param data_df: Input DataFrame with Customer ID and Invoice date.
+    :return: Frequency matrix for all the customers.
     """
 
     column_rename_dictionary = {"INVOICE_DATE": "FREQUENCY"}
