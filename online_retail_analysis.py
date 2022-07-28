@@ -26,6 +26,7 @@ def perform_rfm_analysis(data_set_name=None, reference_date=None, read_from_csv=
     recency_df = recency_df.merge(monetary_df, on=["CUSTOMER_ID"])
     final_df = recency_df.merge(frequency_df, on="CUSTOMER_ID")
     final_df = allocate_rfm_scores(final_df)
+    visualize_recency_matrix(final_df)
     return final_df
 
 
@@ -41,6 +42,7 @@ def perform_customer_segmentation(data_set_name=None, reference_date=None, read_
     data_df = allocate_total_rfm_score(data_df)
     data_df['CUSTOMER_CATEGORY'] = data_df.apply(categorize_customers, axis=1)
     visualize_recency_score_distribution(data_df)
+    visualize_customer_category(data_df)
 
 
 def perform_association_rule_mining(data_set_name=None, read_from_csv=True, apriori=True):
@@ -84,7 +86,7 @@ def perform_sales_analysis(data_set_name=None, read_from_csv=True):
     complete_retail_data = load_online_retail_data(read_from_csv)
     relevant_data_df = complete_retail_data.get(data_set_name)
     relevant_data_df = clean_online_retail_data(relevant_data_df)
-    # visualize_expensive_goods_distribution(relevant_data_df)
+    visualize_expensive_goods_distribution(relevant_data_df)
     visualize_sales_trend(relevant_data_df)
 
 

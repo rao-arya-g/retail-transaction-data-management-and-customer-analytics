@@ -8,11 +8,6 @@ sns.set(style="darkgrid")
 
 
 def display_basic_data_info(data_df):
-    """
-    Function to display basic information about the Data set.
-    :param data_df: Data set in DataFrame format.
-    :return: None
-    """
 
     # Basic Data set information messages
     total_rows_message = "Number of rows in the Data set is: {}"
@@ -47,13 +42,6 @@ def display_basic_data_info(data_df):
 
 
 def visualize_frequently_purchased_items(data_df, limit=20):
-    """
-    Function to visualize frequently purchased items
-    :param limit:
-    :param data_df:
-    :return:
-    """
-
     prod = pd.DataFrame(data_df['PRODUCT_DESCRIPTION'].value_counts()).sort_values(by='PRODUCT_DESCRIPTION', ascending=False)
     prod = prod.head(limit)
     plt.figure(figsize=(10, 5))
@@ -86,20 +74,11 @@ def visualize_sales_trend(data_df):
 
 
 def visualize_expensive_goods_distribution(data_df):
-    """
-    :param data_df:
-    :return:
-    """
     sns.distplot(data_df[data_df['PRICE'] > 50]['PRICE'], kde=False, rug=True).set(title='Price distribution of expensive goods')
     plt.show()
 
 
 def country_related_stuff(data_df):
-    """
-
-    :param data_df:
-    :return:
-    """
     customer_country = data_df[['Country', 'CustomerID']].drop_duplicates()
     customer_country.groupby(['Country'])['CustomerID'].aggregate('count').reset_index().sort_values('CustomerID', ascending=False)
     print("Transactions were made in", len(data_df['Country'].unique().tolist()), "different countries")
@@ -116,12 +95,6 @@ def country_related_stuff(data_df):
 
 
 def visualize_recency_matrix(data_df):
-    """
-    Function to visualize the recency matrix
-    :param data_df: DataFrame of the Customers with recent buy matrix information.
-    :return: None
-    """
-
     plt.hist(data_df["RECENCY"], bins=52)
     plt.title("Trend of Customers buying pattern in terms of recency")
     font = {'family': 'serif', 'color': 'darkred', 'weight': 'normal', 'size': 12}
@@ -132,12 +105,6 @@ def visualize_recency_matrix(data_df):
 
 
 def visualize_monetary_matrix(data_df):
-    """
-    Function to visualize the monetary matrix
-    :param data_df: DataFrame of the Customers with recent buy matrix information.
-    :return: None
-    """
-
     plt.hist(data_df["MONETARY"], bins=52)
     plt.title("Trend of Customers buying pattern in terms of money")
     font = {'family': 'serif', 'color': 'darkred', 'weight': 'normal', 'size': 12}
@@ -148,11 +115,6 @@ def visualize_monetary_matrix(data_df):
 
 
 def visualize_frequency_matrix(data_df):
-    """
-
-    :param data_df:
-    :return:
-    """
     plt.hist(data_df["FREQUENCY"], bins=52)
     plt.title("Trend of Customers buying pattern in terms of money")
     font = {'family': 'serif', 'color': 'darkred', 'weight': 'normal', 'size': 12}
@@ -163,11 +125,6 @@ def visualize_frequency_matrix(data_df):
 
 
 def visualize_customer_category(data_df):
-    """
-    Function to visualize customer catgory
-    :param data_df:
-    :return:
-    """
     plt.figure(figsize=(20, 20))
     sns.pairplot(data_df[['RECENCY', 'FREQUENCY', 'MONETARY', 'CUSTOMER_CATEGORY']], hue='CUSTOMER_CATEGORY')
     fig = px.scatter_matrix(data_df,
@@ -179,11 +136,6 @@ def visualize_customer_category(data_df):
 
 
 def visualize_recency_score_distribution(data_df):
-    """
-
-    :param data_df:
-    :return:
-    """
     data_df.to_clipboard()
     fig = px.pie(data_df,
                  values=data_df['CUSTOMER_CATEGORY'].value_counts(),
