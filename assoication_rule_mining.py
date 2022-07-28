@@ -1,4 +1,3 @@
-import pandas as pd
 from mlxtend.frequent_patterns import association_rules, apriori, fpgrowth
 
 
@@ -20,10 +19,6 @@ def get_data_for_arm(data_df):
     data_df = data_df.applymap(encode_values)
     data_df = data_df[(data_df > 0).sum(axis=1) >= 2]
     return data_df
-
-    # data_df = data_df[data_df.sum(axis=1) >= 2]
-    # pivoted_data_df = pd.pivot_table(data_df, values=['SOLD'], index='INVOICE_DATE', columns=['PRODUCT_DESCRIPTION']).fillna(0)
-    # return pivoted_data_df
 
 
 def perform_arm_apriori(data_df):
