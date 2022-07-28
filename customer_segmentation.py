@@ -1,28 +1,24 @@
 from constants import CATEGORY_MAP
 
 
-def get_high_level_customer_info(data_df):
-    """
-    Function to get the high level customer information
-    :param data_df:
-    :return:
-    """
-    print(data_df.describe())
-    return data_df
-
-
 def allocate_total_rfm_score(data_df):
     """
-    Function to allocate the total RFM score
-    :param data_df:
-    :return:
+    Function to allocate the total RFM score. The function combines all the 3 scores - one as Strings and other one as Integers
+    :param data_df: Input DataFrame with score for Recency, Frequency, and Monetary.
+    :return: Processed DataFrame with Total Score and Total RFM Label.
     """
+
     data_df['TOTAL_RFM_SCORE'] = data_df['RECENCY_SCORE'] + data_df['FREQUENCY_SCORE'] + data_df['MONETARY_SCORE']
     data_df['TOTAL_RFM_LABEL'] = data_df['RECENCY_SCORE'].astype(int) + data_df['FREQUENCY_SCORE'].astype(int) + data_df['MONETARY_SCORE'].astype(int)
     return data_df
 
 
 def categorize_customers(row):
+    """
+    Function to categorize the customers based on the Category and Scores for each of the metrices
+    :param row: Input DataFrame with score for Recency, Frequency, and Monetary.
+    :return: Processed DataFrame with Customer category.
+    """
 
     for key in CATEGORY_MAP:
         score_map = CATEGORY_MAP[key]
@@ -30,12 +26,3 @@ def categorize_customers(row):
             return key
 
     return 'NOT_CATEGORIZED'
-
-
-def get_high_level_customer_segmentation_info(data_df):
-    """
-    Function to do something.
-    :param data_df:
-    :return:
-    """
-    return data_df

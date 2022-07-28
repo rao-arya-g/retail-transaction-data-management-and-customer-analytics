@@ -1,5 +1,5 @@
 from assoication_rule_mining import get_data_for_arm, perform_arm_apriori, perform_arm_fpgrowth
-from customer_segmentation import get_high_level_customer_info, allocate_total_rfm_score, categorize_customers
+from customer_segmentation import allocate_total_rfm_score, categorize_customers
 from data_processing import clean_online_retail_data, load_online_retail_data
 from online_retail_visualization import visualize_recency_matrix, display_basic_data_info, \
     visualize_expensive_goods_distribution, visualize_sales_trend, visualize_recency_score_distribution,visualize_customer_category
@@ -29,12 +29,15 @@ def perform_rfm_analysis(data_set_name=None, reference_date=None, read_from_csv=
     return final_df
 
 
-def perform_customer_segmentation(data_df):
+def perform_customer_segmentation(data_set_name=None, reference_date=None, read_from_csv=True):
     """
     Function to do something
-    :param data_df:
+    :param read_from_csv:
+    :param reference_date:
+    :param data_set_name:
     :return:
     """
+    data_df = perform_rfm_analysis(data_set_name=data_set_name, reference_date=reference_date, read_from_csv=read_from_csv)
     data_df = allocate_total_rfm_score(data_df)
     data_df['CUSTOMER_CATEGORY'] = data_df.apply(categorize_customers, axis=1)
     visualize_recency_score_distribution(data_df)
