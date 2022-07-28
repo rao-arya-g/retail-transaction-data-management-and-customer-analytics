@@ -9,33 +9,26 @@ def clean_online_retail_data(data_df):
     The filtering conditions are -
         1. Quantity greater than 0.
         2. Stock code is not in Bank charge.
-        3.
+        3. Invoice entry is not cancelled.
+        4. Price of the product is greater than 1.
+        5. Unique transactions.
     :param data_df: Online retail data
     :return: Processed data of the type DataFrame
     """
 
-    # Remove the Entries with any records with Quantity <=0
     data_df = data_df[data_df["QUANTITY"] > 0].reset_index(drop=True)
-
-    # Remove the Entries with Stock code as -
-
     data_df = data_df[~data_df["STOCK_CODE"].isin(['BANK_CHARGE'])]
-
-    # Calculate actual price of the transaction
     data_df["PURCHASE_COST"] = data_df["QUANTITY"] * data_df["PRICE"]
-
-    #Remove all cancelled transaction
     data_df = data_df[~data_df['INVOICE_NUMBER'].astype(str).str.contains('C')]
     data_df.drop_duplicates(inplace=True)
     data_df = data_df.dropna(subset=['CUSTOMER_ID'])
     data_df = data_df[(data_df['PRICE'] > 0) & (data_df['QUANTITY'] > 0)]
-
     return data_df
 
 
 def load_online_retail_data(read_from_csv=True):
     """
-    Function to load the online retail data
+    Function to load the online retail data.
     :param read_from_csv: Boolean flag to indicate whether reading should be done from csv or from MySQL.
     :return: Dictionary with Table Name and Corresponding data in DataFrame format.
     """

@@ -32,7 +32,7 @@ def perform_rfm_analysis(data_set_name=None, reference_date=None, read_from_csv=
 def perform_customer_segmentation(data_set_name=None, reference_date=None, read_from_csv=True):
     """
     Function to do something
-    :param read_from_csv:
+    :param read_from_csv: Boolean flag to indicate whether reading should be done from csv or from MySQL.
     :param reference_date:
     :param data_set_name:
     :return:
@@ -47,7 +47,7 @@ def perform_association_rule_mining(data_set_name=None, read_from_csv=True, apri
     """
     Function to perform Association rule mining.
     :param data_set_name: Data set name on which association rule mining is performed.
-    :param read_from_csv: Whether the data should be read from csv or DB.
+    :param read_from_csv: Boolean flag to indicate whether reading should be done from csv or from MySQL.
     :param apriori: Indicate whether to use Apriori or FPGrowth algorithm.
     :return: Association rules
     """
@@ -66,7 +66,7 @@ def perform_basic_data_set_display(data_set_name=None, read_from_csv=True):
     """
     Function to perform basic data set display
     :param data_set_name:
-    :param read_from_csv:
+    :param read_from_csv: Boolean flag to indicate whether reading should be done from csv or from MySQL.
     :return:
     """
     complete_retail_data = load_online_retail_data(read_from_csv)
@@ -78,7 +78,7 @@ def perform_sales_analysis(data_set_name=None, read_from_csv=True):
     """
     Function to perform sales analysis
     :param data_set_name:
-    :param read_from_csv:
+    :param read_from_csv: Boolean flag to indicate whether reading should be done from csv or from MySQL.
     :return:
     """
     complete_retail_data = load_online_retail_data(read_from_csv)
