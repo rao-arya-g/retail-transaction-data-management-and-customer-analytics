@@ -59,6 +59,15 @@ In this project, we propose to build an application that will help online retail
   * Python package Scipy.
 
      ```pip install scipy```
+     
+  * Python package plotly.
+
+     ```pip install plotly```
+     
+   * Python package seaborn.
+
+     ```pip install seaborn```  
+     
 
 ## Usage
 
@@ -91,24 +100,28 @@ To run the RFM analysis -
 from online_retail_analysis import *
 
 # loads the data from excel sheet
-rfm_analysis_data_df = perform_rfm_analysis(read_from_csv=True, data_set_name="complete_retail_data")
+rfm_analysis_data_df = perform_rfm_analysis(data_set_name="complete_retail_data", reference_date="01/01/2012", read_from_csv=True)
 
 print(rfm_analysis_data_df)
 ```
 
-To run the Customer segmentation - (NOT IMPLEMENTED)
+To run the Association rule mining - 
 ```python
-from online_retail_analysis import *
+from online_retail_analysis import perform_association_rule_mining
+perform_association_rule_mining(data_set_name="complete_retail_data", read_from_csv=True, apriori=True)
+perform_association_rule_mining(data_set_name="complete_retail_data", read_from_csv=True, apriori=False)
 ```
 
-To run the Customer segmentation - (NOT IMPLEMENTED)
+To run the Customer segmentation - 
 ```python
-from online_retail_analysis import *
+from online_retail_analysis import perform_customer_segmentation
+perform_customer_segmentation(data_set_name="complete_retail_data", reference_date="01/01/2012", read_from_csv=True)
 ```
 
-To run the Sales trend analysis - (NOT IMPLEMENTED)
+To run the Sales trend analysis - 
 ```python
-from online_retail_analysis import *
+from online_retail_analysis import perform_sales_analysis
+perform_sales_analysis(data_set_name="complete_retail_data", read_from_csv=True)
 ```
 
 ## Contributing
