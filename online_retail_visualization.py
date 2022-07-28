@@ -1,5 +1,9 @@
 import matplotlib.pyplot as plt
 import pandas as pd
+import seaborn as sns
+import warnings
+warnings.filterwarnings('ignore')
+sns.set(style="darkgrid")
 
 
 def display_basic_data_info(data_df):
@@ -63,19 +67,21 @@ def new_function(data_df):
     data_df['YEAR'] = data_df['INVOICE_DATE'].dt.year
     data_df['WEEKDAY'] = data_df['INVOICE_DATE'].dt.day_name()
     data_df['MONTH_YEAR'] = pd.to_datetime(data_df[['YEAR', 'MONTH']].assign(Day=1))
-    data_df['HOUR'] = data_df['InvoiceDate'].dt.hour
+    data_df['HOUR'] = data_df['INVOICE_DATE'].dt.hour
 
-    plot1 = pd.DataFrame(data_df.groupby(['MONTH_YEAR'])['INVOICE'].count()).reset_index()
-    plot2 = pd.DataFrame(data_df.groupby(['WEEKDAY'])['INVOICE'].count())
-    plot3 = pd.DataFrame(data_df.groupby(['hour'])['INVOICE'].count()).reset_index()
+    plot1 = pd.DataFrame(data_df.groupby(['MONTH_YEAR'])['INVOICE_NUMBER'].count()).reset_index()
+    plot2 = pd.DataFrame(data_df.groupby(['WEEKDAY'])['INVOICE_NUMBER'].count())
+    plot3 = pd.DataFrame(data_df.groupby(['HOUR'])['INVOICE_NUMBER'].count()).reset_index()
     plot4 = pd.DataFrame(data_df.groupby(['MONTH_YEAR'])['PURCHASE_COST'].mean()).reset_index()
     plot5 = pd.DataFrame(data_df.groupby(['MONTH_YEAR'])['PURCHASE_COST'].sum()).reset_index()
     plot2 = plot2.reindex(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Sunday']).reset_index()
 
-    ax = sns.lineplot(x="month_year", y="InvoiceNo", data=plot1).set(title='orders per month')
-    ax = sns.barplot(x="WeekDay", y="InvoiceNo", data=plot2).set(title='orders per day')
-    ax = sns.barplot(x="hour", y="InvoiceNo", data=plot3).set(title='orders per hour')
-    ax = sns.lineplot(x='month_year', y='revenue', data=plot5).set(title='month that brings the highest revenue')
+    ax = sns.lineplot(x="MONTH_YEAR", y="INVOICE_NUMBER", data=plot1).set(title='orders per month')
+    ax = sns.barplot(x="WEEKDAY", y="INVOICE_NUMBER", data=plot2).set(title='orders per day')
+    ax = sns.barplot(x="HOUR", y="INVOICE_NUMBER", data=plot3).set(title='orders per hour')
+    ax = sns.lineplot(x='MONTH_YEAR', y='PURCHASE_COST', data=plot5).set(title='month that brings the highest revenue')
+
+    plt.show()
 
 
 def another_stupid_function(data_df):
@@ -85,6 +91,27 @@ def another_stupid_function(data_df):
     :return:
     """
     sns.distplot(data_df[data_df['PRICE'] > 50]['PRICE'], kde=False, rug=True).set(title='Price distribution of expensive goods')
+
+
+def country_related_stuff(data_df):
+    """
+
+    :param data_df:
+    :return:
+    """
+    customer_country = data_df[['Country', 'CustomerID']].drop_duplicates()
+    customer_country.groupby(['Country'])['CustomerID'].aggregate('count').reset_index().sort_values('CustomerID', ascending=False)
+    print("Transactions were made in", len(data_df['Country'].unique().tolist()), "different countries")
+    print("Number of transactions where country is unspecified:", len(data_df[data_df['Country'] == 'Unspecified']))
+    plot6 = pd.DataFrame(data_df.groupby(['Country'])['revenue'].sum()).reset_index()
+    plot6 = plot6.sort_values(['revenue']).reset_index(drop=True)
+    plot7 = pd.DataFrame(data_df.groupby(['Country'])['revenue'].count()).reset_index()
+    plot7 = plot7.sort_values(['revenue']).reset_index(drop=True)
+    fig, ax = plt.subplots()
+    fig.set_size_inches(13, 11.5)
+    ax = sns.barplot(x='Country', y='revenue', data=plot6.tail(10), estimator=max, ax=ax)
+    ax.set_xticklabels(ax.get_xticklabels(), rotation=47, ha="right")
+    plt.show()
 
 
 def visualize_recency_matrix(data_df):

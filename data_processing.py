@@ -25,7 +25,7 @@ def clean_online_retail_data(data_df):
     data_df["PURCHASE_COST"] = data_df["QUANTITY"] * data_df["PRICE"]
 
     #Remove all cancelled transaction
-    data_df = data_df[~data_df['INVOICE'].astype(str).str.contains('C')]
+    data_df = data_df[~data_df['INVOICE_NUMBER'].astype(str).str.contains('C')]
     data_df.drop_duplicates(inplace=True)
     data_df = data_df.dropna(subset=['CUSTOMER_ID'])
     data_df = data_df[(data_df['PRICE'] > 0) & (data_df['QUANTITY'] > 0)]
