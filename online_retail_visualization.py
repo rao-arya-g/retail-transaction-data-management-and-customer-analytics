@@ -45,7 +45,7 @@ def display_basic_data_info(data_df):
     print(duplicate_transaction_message.format(len(data_df[data_df.duplicated()])))
 
 
-def frequently_purchased_items(data_df, limit=20):
+def visualize_frequently_purchased_items(data_df, limit=20):
     """
     Function to visualize frequently purchased items
     :param limit:
@@ -62,7 +62,7 @@ def frequently_purchased_items(data_df, limit=20):
     plt.show()
 
 
-def new_function(data_df):
+def visualize_sales_trend(data_df):
     data_df['MONTH'] = data_df['INVOICE_DATE'].dt.month
     data_df['YEAR'] = data_df['INVOICE_DATE'].dt.year
     data_df['WEEKDAY'] = data_df['INVOICE_DATE'].dt.day_name()

@@ -47,6 +47,31 @@ def perform_association_rule_mining(data_set_name=None, read_from_csv=True):
     perform_arm_apriori(processed_data_df)
 
 
+def perform_basic_data_set_display(data_set_name=None, read_from_csv=True):
+    """
+    Function to perform basic data set display
+    :param data_set_name:
+    :param read_from_csv:
+    :return:
+    """
+    complete_retail_data = load_online_retail_data(read_from_csv)
+    relevant_data_df = complete_retail_data.get(data_set_name)
+    display_basic_data_info(relevant_data_df)
+
+
+def perform_sales_analysis(data_set_name=None, read_from_csv=True):
+    """
+    Function to perform sales analysis
+    :param data_set_name:
+    :param read_from_csv:
+    :return:
+    """
+    complete_retail_data = load_online_retail_data(read_from_csv)
+    relevant_data_df = complete_retail_data.get(data_set_name)
+    relevant_data_df = clean_online_retail_data(relevant_data_df)
+
+
+
 def main():
     """
     Main method - Present now to test few things
