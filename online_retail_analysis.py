@@ -1,4 +1,4 @@
-from assoication_rule_mining import get_data_for_arm, perform_arm_apriori
+from assoication_rule_mining import get_data_for_arm, perform_arm_apriori, perform_arm_fpgrowth
 from customer_segmentation import get_high_level_customer_info, allocate_total_rfm_score, categorize_customers
 from data_processing import clean_online_retail_data, load_online_retail_data
 from online_retail_visualization import visualize_recency_matrix, display_basic_data_info, \
@@ -40,12 +40,23 @@ def perform_customer_segmentation(data_df):
     visualize_recency_score_distribution(data_df)
 
 
-def perform_association_rule_mining(data_set_name=None, read_from_csv=True):
+def perform_association_rule_mining(data_set_name=None, read_from_csv=True, apriori=True):
+    """
+    Function to perform Association rule mining.
+    :param data_set_name: Data set name on which association rule mining is performed.
+    :param read_from_csv: Whether the data should be read from csv or DB.
+    :param apriori: Indicate whether to use Apriori or FPGrowth algorithm.
+    :return: Association rules
+    """
     complete_retail_data = load_online_retail_data(read_from_csv)
     relevant_data_df = complete_retail_data.get(data_set_name)
     processed_data_df = clean_online_retail_data(relevant_data_df)
     processed_data_df = get_data_for_arm(processed_data_df)
-    perform_arm_apriori(processed_data_df)
+    if apriori:
+        rules = perform_arm_apriori(processed_data_df)
+    else:
+        rules = perform_arm_fpgrowth(processed_data_df)
+    return rules
 
 
 def perform_basic_data_set_display(data_set_name=None, read_from_csv=True):
