@@ -2,8 +2,8 @@ Contributions by each team member towards the project is as follows –
 
 Shivani Singh worked on developing visualizations for Data set information and data cleansing. She also worked on Association rule mining module implementation.
 
-Arya Girisha Rao worked on DB Connection and input read, overall design, and RFM analysis module implementation.
+Arya Girisha Rao worked on input read and connection, overall design, and RFM analysis module implementation.
 
-Meenu Gigi worked on Sales trend analysis and visualization and Association rule mining implementation.
+Meenu Gigi worked on Sales trend analysis and visualization, and Association rule mining implementation.
 
 Pradeep Kumar Gontla worked on data pre-processing and customer segmentation module.
