@@ -60,7 +60,7 @@ def derive_recency_matrix(data_df, reference_date=None):
 
 def derive_frequency_matrix(data_df):
     """
-    Function to derive frequency matrix
+    Function to derive frequency matrix.
     :param data_df:
     :return:
     """

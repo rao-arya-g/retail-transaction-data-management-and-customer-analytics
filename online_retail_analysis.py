@@ -1,7 +1,7 @@
 from assoication_rule_mining import get_data_for_arm, perform_arm_apriori
 from customer_segmentation import get_high_level_customer_info, allocate_total_rfm_score, categorize_customers
 from data_processing import clean_online_retail_data, load_online_retail_data
-# from online_retail_visualization import visualize_recency_matrix
+from online_retail_visualization import visualize_recency_matrix, display_basic_data_info, frequently_purchased_items
 from rfm_analysis import derive_recency_matrix, derive_monetary_matrix, derive_frequency_matrix, allocate_rfm_scores
 
 
@@ -54,9 +54,17 @@ def main():
     """
     reference_date = "01/01/2011"
     data_set_name = "complete_retail_data"
-    data_df = perform_rfm_analysis(data_set_name=data_set_name, reference_date=reference_date, read_from_csv=True)
-    data_df = perform_customer_segmentation(data_df)
-    data_df.to_clipboard()
+    read_from_csv = True
+
+    # data_df = perform_rfm_analysis(data_set_name=data_set_name, reference_date=reference_date, read_from_csv=read_from_csv)
+    # data_df = perform_customer_segmentation(data_df)
+    # data_df.to_clipboard()
+
+    complete_retail_data = load_online_retail_data(read_from_csv)
+    relevant_data_df = complete_retail_data.get(data_set_name)
+    # display_basic_data_info(relevant_data_df)
+
+    frequently_purchased_items(relevant_data_df)
 
 
 if __name__ == '__main__':

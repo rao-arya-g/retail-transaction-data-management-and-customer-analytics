@@ -5,7 +5,11 @@ from utility_functions import load_data_from_csv, load_data_from_mysql
 
 def clean_online_retail_data(data_df):
     """
-    Function to clean the online retail data.
+    Function to clean the online retail data. Filter the data as per requirement.
+    The filtering conditions are -
+        1. Quantity greater than 0.
+        2. Stock code is not in Bank charge.
+        3.
     :param data_df: Online retail data
     :return: Processed data of the type DataFrame
     """
@@ -19,6 +23,13 @@ def clean_online_retail_data(data_df):
 
     # Calculate actual price of the transaction
     data_df["PURCHASE_COST"] = data_df["QUANTITY"] * data_df["PRICE"]
+
+    #Remove all cancelled transaction
+    data_df = data_df[~data_df['INVOICE'].astype(str).str.contains('C')]
+    data_df.drop_duplicates(inplace=True)
+    data_df = data_df.dropna(subset=['CUSTOMER_ID'])
+    data_df = data_df[(data_df['PRICE'] > 0) & (data_df['QUANTITY'] > 0)]
+
     return data_df
 
 
