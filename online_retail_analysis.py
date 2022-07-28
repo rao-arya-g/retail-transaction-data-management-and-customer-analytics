@@ -6,10 +6,11 @@ from online_retail_visualization import visualize_recency_matrix, display_basic_
 from rfm_analysis import derive_recency_matrix, derive_monetary_matrix, derive_frequency_matrix, allocate_rfm_scores
 
 
-def perform_rfm_analysis(data_set_name=None, reference_date=None, read_from_csv=True):
+def perform_rfm_analysis(data_set_name=None, reference_date=None, read_from_csv=True, visualization=True):
     """
-    Function to perform RFM Analysis
-    :param reference_date:
+    Function to perform RFM Analysis.
+    :param visualization: Boolean to indicate whether visualization should be done or not.
+    :param reference_date: Reference date for Recency matrix
     :param data_set_name: Data set name on which association rule mining is performed.
     :param read_from_csv: Boolean flag to indicate whether reading should be done from csv or from MySQL.
     :return: RFM Analysis DataFrame
@@ -26,7 +27,8 @@ def perform_rfm_analysis(data_set_name=None, reference_date=None, read_from_csv=
     recency_df = recency_df.merge(monetary_df, on=["CUSTOMER_ID"])
     final_df = recency_df.merge(frequency_df, on="CUSTOMER_ID")
     final_df = allocate_rfm_scores(final_df)
-    visualize_recency_matrix(final_df)
+    if visualization:
+        visualize_recency_matrix(final_df)
     return final_df
 
 
@@ -38,11 +40,10 @@ def perform_customer_segmentation(data_set_name=None, reference_date=None, read_
     :param data_set_name: Data set name on which association rule mining is performed.
     :return:
     """
-    data_df = perform_rfm_analysis(data_set_name=data_set_name, reference_date=reference_date, read_from_csv=read_from_csv)
+    data_df = perform_rfm_analysis(data_set_name=data_set_name, reference_date=reference_date, read_from_csv=read_from_csv, visualization=False)
     data_df = allocate_total_rfm_score(data_df)
     data_df['CUSTOMER_CATEGORY'] = data_df.apply(categorize_customers, axis=1)
     visualize_recency_score_distribution(data_df)
-    visualize_customer_category(data_df)
 
 
 def perform_association_rule_mining(data_set_name=None, read_from_csv=True, apriori=True):
@@ -88,6 +89,7 @@ def perform_sales_analysis(data_set_name=None, read_from_csv=True):
     relevant_data_df = clean_online_retail_data(relevant_data_df)
     visualize_expensive_goods_distribution(relevant_data_df)
     visualize_sales_trend(relevant_data_df)
+    visualize_customer_category(relevant_data_df)
 
 
 def main():
@@ -99,8 +101,7 @@ def main():
     data_set_name = "complete_retail_data"
     read_from_csv = True
 
-    data_df = perform_rfm_analysis(data_set_name=data_set_name, reference_date=reference_date, read_from_csv=read_from_csv)
-    perform_customer_segmentation(data_df)
+    perform_customer_segmentation(data_set_name, reference_date, read_from_csv)
 
 
 if __name__ == '__main__':
