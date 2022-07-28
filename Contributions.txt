@@ -7,3 +7,5 @@ Arya Girisha Rao worked on input read and connection, overall design, and RFM an
 Meenu Gigi worked on Sales trend analysis and visualization, and Association rule mining implementation.
 
 Pradeep Kumar Gontla worked on data pre-processing and customer segmentation module.
+
+Report work and poster work was equally divided among all the team members and each of us reviewed the others' content while consolidating the report and poster.
