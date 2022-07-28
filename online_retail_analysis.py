@@ -2,7 +2,7 @@ from assoication_rule_mining import get_data_for_arm, perform_arm_apriori, perfo
 from customer_segmentation import allocate_total_rfm_score, categorize_customers
 from data_processing import clean_online_retail_data, load_online_retail_data
 from online_retail_visualization import visualize_recency_matrix, display_basic_data_info, \
-    visualize_expensive_goods_distribution, visualize_sales_trend, visualize_recency_score_distribution,visualize_customer_category
+    visualize_expensive_goods_distribution, visualize_sales_trend, visualize_recency_score_distribution, visualize_customer_category
 from rfm_analysis import derive_recency_matrix, derive_monetary_matrix, derive_frequency_matrix, allocate_rfm_scores
 
 
@@ -10,8 +10,8 @@ def perform_rfm_analysis(data_set_name=None, reference_date=None, read_from_csv=
     """
     Function to perform RFM Analysis
     :param reference_date:
-    :param data_set_name:
-    :param read_from_csv:
+    :param data_set_name: Data set name on which association rule mining is performed.
+    :param read_from_csv: Boolean flag to indicate whether reading should be done from csv or from MySQL.
     :return: RFM Analysis DataFrame
     """
     complete_retail_data = load_online_retail_data(read_from_csv)
@@ -34,7 +34,7 @@ def perform_customer_segmentation(data_set_name=None, reference_date=None, read_
     Function to do something
     :param read_from_csv: Boolean flag to indicate whether reading should be done from csv or from MySQL.
     :param reference_date:
-    :param data_set_name:
+    :param data_set_name: Data set name on which association rule mining is performed.
     :return:
     """
     data_df = perform_rfm_analysis(data_set_name=data_set_name, reference_date=reference_date, read_from_csv=read_from_csv)
@@ -65,7 +65,7 @@ def perform_association_rule_mining(data_set_name=None, read_from_csv=True, apri
 def perform_basic_data_set_display(data_set_name=None, read_from_csv=True):
     """
     Function to perform basic data set display
-    :param data_set_name:
+    :param data_set_name: Data set name on which association rule mining is performed.
     :param read_from_csv: Boolean flag to indicate whether reading should be done from csv or from MySQL.
     :return:
     """
@@ -77,7 +77,7 @@ def perform_basic_data_set_display(data_set_name=None, read_from_csv=True):
 def perform_sales_analysis(data_set_name=None, read_from_csv=True):
     """
     Function to perform sales analysis
-    :param data_set_name:
+    :param data_set_name: Data set name on which association rule mining is performed.
     :param read_from_csv: Boolean flag to indicate whether reading should be done from csv or from MySQL.
     :return:
     """
@@ -98,9 +98,7 @@ def main():
     read_from_csv = True
 
     data_df = perform_rfm_analysis(data_set_name=data_set_name, reference_date=reference_date, read_from_csv=read_from_csv)
-    data_df = perform_customer_segmentation(data_df)
-
-    # perform_sales_analysis(data_set_name=data_set_name, read_from_csv=read_from_csv)
+    perform_customer_segmentation(data_df)
 
 
 if __name__ == '__main__':
