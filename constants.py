@@ -1,7 +1,7 @@
 from utility_functions import format_complete_retail_data
 
 
-FILE_BASED_CONFIG = {"complete_retail_data": {"file_name": "input_files/online_retail_II_sample.xlsx", "skiprows": 0, "skipfooter": 0,
+FILE_BASED_CONFIG = {"complete_retail_data": {"file_name": "online_retail_II_sample.xlsx", "skiprows": 0, "skipfooter": 0,
                                               "sheet_name": None, "format_function": format_complete_retail_data}
                      }
 
