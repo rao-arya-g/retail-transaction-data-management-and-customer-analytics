@@ -152,5 +152,38 @@ def visualize_frequency_matrix(data_df):
     :param data_df:
     :return:
     """
-    return data_df
+    plt.hist(data_df["FREQUENCY"], bins=52)
+    plt.title("Trend of Customers buying pattern in terms of money")
+    font = {'family': 'serif', 'color': 'darkred', 'weight': 'normal', 'size': 12}
 
+    plt.xlabel("Frequency by the customers", fontdict=font)
+    plt.ylabel("Number of customers", fontdict=font)
+    plt.show()
+
+
+def visualize_customer_category(data_df):
+    """
+    Function to visualize customer catgory
+    :param data_df:
+    :return:
+    """
+    plt.figure(figsize=(20, 20))
+    sns.pairplot(data_df[['Recency', 'Frequency', 'Monetary', 'Customer_Category']], hue='Customer_Category');
+    fig = px.scatter_matrix(customer_rfm,
+                            dimensions=['Recency', 'Frequency', 'Monetary'],
+                            color="Customer_Category",
+                            width=1000, height=800)
+
+    fig.show()
+
+
+def visualize_recency_score_distribution(data_df):
+    """
+
+    :param data_df:
+    :return:
+    """
+    fig = px.pie(df, values=customer_rfm['Recency_Score'].value_counts(),
+                 names=(customer_rfm["Recency_Score"].value_counts()).index,
+                 title='Recency Score Distribution')
+    fig.show()
