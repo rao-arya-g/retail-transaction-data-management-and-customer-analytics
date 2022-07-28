@@ -1,6 +1,6 @@
 from connection_utility import get_connection
 from constants import FILE_BASED_CONFIG, MYSQL_BASED_CONFIG
-from utility_functions import load_data_from_csv, load_data_from_mysql
+from utility_functions import load_data_from_excel, load_data_from_mysql
 
 
 def clean_online_retail_data(data_df):
@@ -38,7 +38,7 @@ def load_online_retail_data(read_from_csv=True):
     if read_from_csv:
         for table_name in FILE_BASED_CONFIG:
             current_config = FILE_BASED_CONFIG.get(table_name)
-            data_df = load_data_from_csv(current_config)
+            data_df = load_data_from_excel(current_config)
             data_df_dictionary[table_name] = data_df
     else:
         conn = get_connection()

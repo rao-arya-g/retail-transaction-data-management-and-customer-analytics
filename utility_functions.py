@@ -1,7 +1,12 @@
 import pandas as pd
 
 
-def load_data_from_csv(table_config):
+def load_data_from_excel(table_config):
+    """
+    Function to load the data from Excel file
+    :param table_config: Configuration name of the source data which needs to be loaded
+    :return: DataFrame created by loading the data from the given Excel sheet.
+    """
 
     file_name = table_config.get('file_name')
     skiprows = table_config.get('skiprows')
@@ -16,7 +21,14 @@ def load_data_from_csv(table_config):
 
 
 def create_dataframe_from_excel(filename, skiprows=0, skipfooter=0, sheet_name=0):
-    """Function to read data from csv to DataFrame"""
+    """
+    Function to create a dataFrame from the Excel sheet.
+    :param filename: Name of the excel sheet.
+    :param skiprows: Number of rows that needs to be skipped in the beginning of the Excel file.
+    :param skipfooter: Number of rows that needs to be skipped in the end of the Excel file.
+    :param sheet_name: Name of the sheets that needs to be loaded from the Excel file. None is all the sheets need to be joined.
+    :return:
+    """
 
     try:
         data_df = pd.read_excel(filename, sheet_name=sheet_name, skiprows=skiprows, skipfooter=skipfooter)
@@ -40,8 +52,8 @@ def load_data_from_mysql(sql_query, conn):
 def format_complete_retail_data(complete_data):
     """
     Function to format the complete retail data
-    :param complete_data:
-    :return:
+    :param complete_data: Raw input DataFrame that needs to be formatted.
+    :return: Formatted DataFrame.
     """
     column_rename_dictionary = {"Invoice": "INVOICE_NUMBER", "StockCode": "STOCK_CODE",
                                 "Description": "PRODUCT_DESCRIPTION", "Quantity": "QUANTITY",
