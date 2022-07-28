@@ -84,13 +84,13 @@ def visualize_sales_trend(data_df):
     plt.show()
 
 
-def another_stupid_function(data_df):
+def visualize_expensive_goods_distribution(data_df):
     """
-
     :param data_df:
     :return:
     """
     sns.distplot(data_df[data_df['PRICE'] > 50]['PRICE'], kde=False, rug=True).set(title='Price distribution of expensive goods')
+    plt.show()
 
 
 def country_related_stuff(data_df):
