@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as pd
+import plotly.express as px
 import seaborn as sns
 import warnings
 warnings.filterwarnings('ignore')
@@ -168,10 +169,10 @@ def visualize_customer_category(data_df):
     :return:
     """
     plt.figure(figsize=(20, 20))
-    sns.pairplot(data_df[['Recency', 'Frequency', 'Monetary', 'Customer_Category']], hue='Customer_Category');
-    fig = px.scatter_matrix(customer_rfm,
-                            dimensions=['Recency', 'Frequency', 'Monetary'],
-                            color="Customer_Category",
+    sns.pairplot(data_df[['RECENCY', 'FREQUENCY', 'MONETARY', 'CUSTOMER_CATEGORY']], hue='CUSTOMER_CATEGORY')
+    fig = px.scatter_matrix(data_df,
+                            dimensions=['RECENCY', 'FREQUENCY', 'MONETARY'],
+                            color="CUSTOMER_CATEGORY",
                             width=1000, height=800)
 
     fig.show()
@@ -183,7 +184,9 @@ def visualize_recency_score_distribution(data_df):
     :param data_df:
     :return:
     """
-    fig = px.pie(df, values=customer_rfm['Recency_Score'].value_counts(),
-                 names=(customer_rfm["Recency_Score"].value_counts()).index,
-                 title='Recency Score Distribution')
+    data_df.to_clipboard()
+    fig = px.pie(data_df,
+                 values=data_df['CUSTOMER_CATEGORY'].value_counts(),
+                 names=(data_df["CUSTOMER_CATEGORY"].value_counts()).index,
+                 title='Customer Category Distribution')
     fig.show()

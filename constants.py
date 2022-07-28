@@ -1,7 +1,7 @@
 from utility_functions import format_complete_retail_data
 
 
-FILE_BASED_CONFIG = {"complete_retail_data": {"file_name": "input_files/online_retail_II_sample.xlsx", "skiprows": 0, "skipfooter": 0,
+FILE_BASED_CONFIG = {"complete_retail_data": {"file_name": "input_files/online_retail.xlsx", "skiprows": 0, "skipfooter": 0,
                                               "sheet_name": None, "format_function": format_complete_retail_data}
                      }
 
@@ -11,10 +11,10 @@ MYSQL_BASED_CONFIG = {"table_1_1": {"SQL_QUERY": ""}}
 BASE_FREQUENCY_BINS = [0, 2, 5, 10]
 FREQUENCY_LABELS = ['1', '2', '3', '4']
 
-BASE_RECENCY_BINS = [0, 2, 5, 10]
+BASE_RECENCY_BINS = [0, 30, 60, 90]
 RECENCY_LABELS = ['1', '2', '3', '4']
 
-BASE_MONETARY_BINS = [0, 2, 5, 10]
+BASE_MONETARY_BINS = [0, 300, 600, 1500]
 MONETARY_LABELS = ['1', '2', '3', '4']
 
 CATEGORY_MAP = {'Champion': {'RECENCY_SCORE': ['2', '3', '4'], 'FREQUENCY_SCORE': ['4'], 'MONETARY_SCORE': ['4']},

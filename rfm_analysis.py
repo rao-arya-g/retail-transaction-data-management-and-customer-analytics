@@ -25,6 +25,8 @@ def allocate_rfm_scores(data_df):
     :return:
     """
 
+    print(max(data_df['FREQUENCY']), max(data_df['RECENCY']), max(data_df['MONETARY']))
+
     data_df['FREQUENCY_SCORE'] = pd.cut(data_df['FREQUENCY'], bins=BASE_FREQUENCY_BINS+[max(data_df['FREQUENCY']+1)],
                                         labels=FREQUENCY_LABELS).astype(str)
 
