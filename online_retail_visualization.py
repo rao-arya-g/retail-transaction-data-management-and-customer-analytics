@@ -16,6 +16,7 @@ Author: Arya Girisha Rao(ar1422@rit.edu)
 This is a python file for Visualization module
 """
 
+
 def display_basic_data_info(data_df):
 
     # Basic Data set information messages

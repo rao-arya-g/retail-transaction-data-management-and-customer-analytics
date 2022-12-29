@@ -14,7 +14,7 @@ Author: Arya Girisha Rao(ar1422@rit.edu)
 
 This is a python file for Online retail Analysis main run
 """
-
+CONNECTION = ()
 
 def perform_rfm_analysis(data_set_name=None, reference_date=None, read_from_csv=True, visualization=True):
     """

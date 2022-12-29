@@ -10,6 +10,7 @@ Author: Arya Girisha Rao(ar1422@rit.edu)
 This is a python file for all the utility functions needed for the project.
 """
 
+
 def load_data_from_excel(table_config):
     """
     Function to load the data from Excel file
