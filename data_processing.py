@@ -3,11 +3,7 @@ from constants import FILE_BASED_CONFIG, MYSQL_BASED_CONFIG
 from utility_functions import load_data_from_excel, load_data_from_mysql
 
 """
-CSCI-620 - Project
 Author: Arya Girisha Rao(ar1422@rit.edu)
-        Pradeep Kumar Gontla(pg3328@rit.edu)
-        Shivani Singh(ss5243@rit.edu)
-        Meenu Gigi(mg2578@rit.edu)
 
 This is a python file for Data processing.
 """

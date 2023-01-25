@@ -1,11 +1,7 @@
 from constants import CATEGORY_MAP
 
 """
-CSCI-620 - Project
 Author: Arya Girisha Rao(ar1422@rit.edu)
-        Pradeep Kumar Gontla(pg3328@rit.edu)
-        Shivani Singh(ss5243@rit.edu)
-        Meenu Gigi(mg2578@rit.edu)
 
 This is a python file for Customer segmentation module
 """

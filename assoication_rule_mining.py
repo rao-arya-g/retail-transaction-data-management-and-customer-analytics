@@ -1,14 +1,11 @@
 from mlxtend.frequent_patterns import association_rules, apriori, fpgrowth
 
 """
-CSCI-620 - Project
 Author: Arya Girisha Rao(ar1422@rit.edu)
-        Pradeep Kumar Gontla(pg3328@rit.edu)
-        Shivani Singh(ss5243@rit.edu)
-        Meenu Gigi(mg2578@rit.edu)
 
 This is a python file for Association rule mining module
 """
+
 
 def get_data_for_arm(data_df):
     """
