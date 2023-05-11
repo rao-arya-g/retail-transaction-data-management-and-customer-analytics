@@ -24,17 +24,11 @@ In this project, we propose to build an application that will help online retail
 
  * #### Customer segmentation
 
-      * Nested bullet
+      * Model to segment the customer based on the RFM analysis.
+      * Based on the score of RFM analysis, each customer is segmented into pre-defined cluster.
 
-      * Sub-nested bullet etc.
 
- * #### Basket analysis
-
-      * Nested bullet
-
-      * Sub-nested bullet etc.
-
-## Installation
+ s# Installation
 
 #### Requirements
 * MariaDB  10.4+ or any latest version of SQL.
